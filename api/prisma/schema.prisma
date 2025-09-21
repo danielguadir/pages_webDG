@@ -1,0 +1,48 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Category {
+  id            Int            @id @default(autoincrement())
+  name          String
+  slug          String         @unique
+  order         Int            @default(0)
+  subcategories Subcategory[]
+  products      Product[]
+}
+
+model Subcategory {
+  id         Int      @id @default(autoincrement())
+  name       String
+  slug       String   @unique
+  order      Int      @default(0)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int
+  products   Product[]
+}
+
+model Product {
+  id            Int          @id @default(autoincrement())
+  name          String
+  slug          String       @unique
+  sku           String?
+  price         Float?
+  unit          String?
+  stock         Int?
+  imageUrl      String?
+  description   String?
+  supplier      String?
+  category      Category?    @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId    Int?
+  subcategory   Subcategory? @relation(fields: [subcategoryId], references: [id], onDelete: SetNull)
+  subcategoryId Int?
+  tags          Json         @default("[]")   // ← CAMBIO
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
