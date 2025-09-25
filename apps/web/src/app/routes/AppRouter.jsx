@@ -7,6 +7,7 @@ import Category from '../../pages/Category'
 import Subcategory from '../../pages/Subcategory'
 import Header from '../../components/layout/Header'
 import Footer from '../../components/layout/Footer'
+import Search from '../../pages/Search'
 
 export default function AppRouter(){
   const dispatch = useDispatch()
@@ -20,6 +21,7 @@ export default function AppRouter(){
           <Route path="/" element={<Home />} />
           <Route path="/c/:category" element={<Category />} />
           <Route path="/c/:category/:subcategory" element={<Subcategory />} />
+          <Route path="/search" element={<Search />} />
         </Routes>
       </main>
       <Footer />
