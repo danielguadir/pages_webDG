@@ -1,5 +1,7 @@
 # AgroDistrib - Tienda Agropecuaria
 
+![Vista de la Tienda](images/tienda-agro.png)
+
 Proyecto full-stack para una tienda de distribución de productos agropecuarios.
 
 ## Características
