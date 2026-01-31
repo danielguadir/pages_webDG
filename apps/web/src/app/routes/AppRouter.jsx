@@ -5,9 +5,11 @@ import { fetchCategories } from '../store/slices/categoriesSlice'
 import Home from '../../pages/Home'
 import Category from '../../pages/Category'
 import Subcategory from '../../pages/Subcategory'
+import Search from '../../pages/Search'
+import Cart from '../../pages/Cart'
+import Checkout from '../../pages/Checkout'
 import Header from '../../components/layout/Header'
 import Footer from '../../components/layout/Footer'
-import Search from '../../pages/Search'
 
 export default function AppRouter(){
   const dispatch = useDispatch()
@@ -22,6 +24,8 @@ export default function AppRouter(){
           <Route path="/c/:category" element={<Category />} />
           <Route path="/c/:category/:subcategory" element={<Subcategory />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </main>
       <Footer />

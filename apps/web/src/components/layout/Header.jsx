@@ -2,12 +2,15 @@ import { useState } from "react"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import SearchBar from "../common/SearchBar"
+import CartIcon from "../common/CartIcon"
 import MegaMenu from "./MegaMenu"
 import MobileMenu from "./MobileMenu"
 import TopBar from "./TopBar"
 
 export default function Header() {
   const cats = useSelector((s) => s.categories.list)
+  const status = useSelector((s) => s.categories.status)
+  const error = useSelector((s) => s.categories.error)
   const [active, setActive] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -26,7 +29,10 @@ export default function Header() {
           className="hidden md:flex items-center gap-2 relative"
           onMouseLeave={() => setActive(null)}
         >
-          {cats.map((c) => (
+          {status === 'loading' && <span>Cargando categorías...</span>}
+          {status === 'failed' && <span className="text-red-600">Error: {error}</span>}
+          {status === 'succeeded' && cats.length === 0 && <span>No hay categorías</span>}
+          {status === 'succeeded' && cats.map((c) => (
             <button
               key={c.id}
               className={`px-3 py-1 rounded hover:bg-green-50 ${
@@ -46,6 +52,9 @@ export default function Header() {
         <div className="ml-auto hidden md:block">
           <SearchBar placeholder="Buscar por nombre o etiqueta…" />
         </div>
+
+        {/* Carrito */}
+        <CartIcon />
 
         {/* Botón hamburguesa (solo móvil) */}
         <button
